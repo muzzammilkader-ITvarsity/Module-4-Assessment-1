@@ -96,3 +96,16 @@ img#logo {
     width: 100px;   /* you can adjust size */
     cursor: pointer;
 }
+#left-column {
+    float: left;
+    width: 200px;
+    padding: 10px;
+}
+
+#right-column {
+    float: left;
+    width: 600px;      /* make sure it has a visible area */
+    height: 600px;     /* same height as your stickman */
+    position: relative;
+    border: 2px dashed transparent; /* you can change to grey for testing */
+}
