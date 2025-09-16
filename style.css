@@ -1,58 +1,54 @@
 body {
   font-family: Arial, sans-serif;
   display: flex;
-  margin: 0;
-  padding: 0;
 }
 
-/* Left column scrollable grid */
+/* Left column */
 #left-column {
   width: 220px;
   height: 100vh;
   overflow-y: auto;
   padding: 10px;
   border-right: 2px solid #ccc;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
 }
 
 #left-column h3 {
-  grid-column: span 2;
+  text-align: center;
   margin: 10px 0 5px;
   font-size: 14px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 3px;
+  color: #333;
 }
 
 #left-column img {
-  width: 80px;
+  width: 90px;
+  margin: 5px;
   cursor: grab;
-  justify-self: center;
+  display: inline-block;
 }
 
-/* Right column with 2 stickmen */
+/* Right column */
 #right-column {
-  flex-grow: 1;
+  flex: 1;
   height: 100vh;
-  margin-left: 20px;
   position: relative;
   border: 2px dashed transparent;
+  padding: 10px;
+}
+
+/* Stickmen side by side */
+#stickmen-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 40px; /* space between stickmen */
+  gap: 40px;
+  margin-top: 20px;
 }
 
-#stickman,
-#stickman2 {
+.stickman {
   height: 400px;
-  display: block;
+  width: auto;
 }
 
-/* Logo pinned at bottom right of the whole right column */
+/* Logo bottom right */
 #logo {
   position: absolute;
   bottom: 10px;
@@ -60,20 +56,9 @@ body {
   width: 120px;
 }
 
-/* Items added to stickman */
+/* Dragged items */
 #right-column img.added {
   width: 100px;
   cursor: pointer;
   position: absolute;
-}
-
-/* Smaller hats */
-#right-column img.added[alt*="Hat"] {
-  width: 80px;
-}
-
-/* Larger person images */
-#right-column img.added[alt*="Person"],
-#right-column img.added[alt*="Walk"] {
-  width: 200px;
 }
