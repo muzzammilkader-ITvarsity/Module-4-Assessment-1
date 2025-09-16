@@ -13,23 +13,6 @@ leftImages.forEach(img => {
     dragImg.style.pointerEvents = "none"; // so we don't capture mouse events
     rightColumn.appendChild(dragImg);
 
-    // SCALE ONLY: adjust image width based on type
-    if (img.src.includes("hat")) {
-      dragImg.style.width = "70px";
-    } else if (img.src.includes("eyes")) {
-      dragImg.style.width = "50px";
-    } else if (img.src.includes("mouth")) {
-      dragImg.style.width = "40px";
-    } else if (img.src.includes("shirt")) {
-      dragImg.style.width = "120px";
-    } else if (img.src.includes("pants")) {
-      dragImg.style.width = "100px";
-    } else if (img.src.includes("shoe")) {
-      dragImg.style.width = "40px";
-    } else {
-      dragImg.style.width = "100px"; // default for other images
-    }
-
     // Position it under the cursor
     const rect = rightColumn.getBoundingClientRect();
     dragImg.style.left = (e.clientX - rect.left - dragImg.width / 2) + "px";
