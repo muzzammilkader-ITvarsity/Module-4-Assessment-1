@@ -5,7 +5,7 @@ body {
   padding: 0;
 }
 
-/* Left column */
+/* Left column scrollable grid */
 #left-column {
   width: 220px;
   height: 100vh;
@@ -33,32 +33,26 @@ body {
   justify-self: center;
 }
 
-/* Right column with two stickmen side by side */
+/* Right column with 2 stickmen */
 #right-column {
   flex-grow: 1;
   height: 100vh;
   margin-left: 20px;
   position: relative;
+  border: 2px dashed transparent;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 40px; /* space between stickmen */
-  border: 2px dashed transparent;
-}
-
-.stickman-wrapper {
-  position: relative;
-  width: 300px;
-  text-align: center;
 }
 
 #stickman,
 #stickman2 {
   height: 400px;
   display: block;
-  margin: 20px auto;
 }
 
+/* Logo pinned at bottom right of the whole right column */
 #logo {
   position: absolute;
   bottom: 10px;
@@ -66,7 +60,7 @@ body {
   width: 120px;
 }
 
-/* Default added items */
+/* Items added to stickman */
 #right-column img.added {
   width: 100px;
   cursor: pointer;
