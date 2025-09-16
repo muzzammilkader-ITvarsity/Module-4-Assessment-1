@@ -1,65 +1,56 @@
-// Make left-column images draggable
-document.querySelectorAll("#left-column img").forEach(img => {
-  img.setAttribute("draggable", "true");
-
-  img.addEventListener("dragstart", e => {
-    e.dataTransfer.setData("text/plain", e.target.src);
-  });
-});
-
+const leftImages = document.querySelectorAll("#left-column img");
 const rightColumn = document.getElementById("right-column");
 
-// Highlight drop area
-rightColumn.addEventListener("dragover", e => {
-  e.preventDefault();
-  rightColumn.style.border = "2px dashed red";
-});
+leftImages.forEach(img => {
+  img.addEventListener("mousedown", e => {
+    e.preventDefault();
 
-rightColumn.addEventListener("dragleave", () => {
-  rightColumn.style.border = "2px dashed transparent";
-});
-
-// Drop event - drop point unchanged
-rightColumn.addEventListener("drop", e => {
-  e.preventDefault();
-  rightColumn.style.border = "2px dashed transparent";
-
-  const src = e.dataTransfer.getData("text/plain");
-  if (!src) return;
-
-  const newImg = document.createElement("img");
-  newImg.src = src;
-  newImg.className = "added";
-  newImg.style.position = "absolute";
-
-  // Append first so size can be calculated
-  rightColumn.appendChild(newImg);
-
-  newImg.onload = () => {
-    const rect = rightColumn.getBoundingClientRect();
-    const x = e.clientX - rect.left - newImg.width / 2;
-    const y = e.clientY - rect.top - newImg.height / 2;
-    newImg.style.left = x + "px";
-    newImg.style.top = y + "px";
+    // Create a clone of the image for dragging
+    const dragImg = document.createElement("img");
+    dragImg.src = img.src;
+    dragImg.className = "added";
+    dragImg.style.position = "absolute";
+    dragImg.style.pointerEvents = "none"; // so we don't capture mouse events
+    rightColumn.appendChild(dragImg);
 
     // SCALE ONLY: adjust image width based on type
-    if (src.includes("hat")) {
-      newImg.style.width = "70px";
-    } else if (src.includes("eyes")) {
-      newImg.style.width = "50px";
-    } else if (src.includes("mouth")) {
-      newImg.style.width = "40px";
-    } else if (src.includes("shirt")) {
-      newImg.style.width = "120px";
-    } else if (src.includes("pants")) {
-      newImg.style.width = "100px";
-    } else if (src.includes("shoe")) {
-      newImg.style.width = "40px";
+    if (img.src.includes("hat")) {
+      dragImg.style.width = "70px";
+    } else if (img.src.includes("eyes")) {
+      dragImg.style.width = "50px";
+    } else if (img.src.includes("mouth")) {
+      dragImg.style.width = "40px";
+    } else if (img.src.includes("shirt")) {
+      dragImg.style.width = "120px";
+    } else if (img.src.includes("pants")) {
+      dragImg.style.width = "100px";
+    } else if (img.src.includes("shoe")) {
+      dragImg.style.width = "40px";
     } else {
-      newImg.style.width = "100px"; // default for other images
+      dragImg.style.width = "100px"; // default for other images
     }
-  };
 
-  // Click to remove
-  newImg.addEventListener("click", () => newImg.remove());
+    // Position it under the cursor
+    const rect = rightColumn.getBoundingClientRect();
+    dragImg.style.left = (e.clientX - rect.left - dragImg.width / 2) + "px";
+    dragImg.style.top = (e.clientY - rect.top - dragImg.height / 2) + "px";
+
+    // Move with mouse
+    function moveHandler(ev) {
+      dragImg.style.left = (ev.clientX - rect.left - dragImg.width / 2) + "px";
+      dragImg.style.top = (ev.clientY - rect.top - dragImg.height / 2) + "px";
+    }
+
+    function upHandler() {
+      dragImg.style.pointerEvents = "auto"; // allow clicking to remove
+      document.removeEventListener("mousemove", moveHandler);
+      document.removeEventListener("mouseup", upHandler);
+
+      // Click to remove
+      dragImg.addEventListener("click", () => dragImg.remove());
+    }
+
+    document.addEventListener("mousemove", moveHandler);
+    document.addEventListener("mouseup", upHandler);
+  });
 });
