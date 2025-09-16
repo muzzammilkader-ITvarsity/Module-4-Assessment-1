@@ -1,18 +1,14 @@
 const container = document.getElementById('funny-container');
 const shuffleBtn = document.getElementById('shuffle-btn');
-const stickman = "stickman.png"; // Stickman image
+const stickman = "stickman.png"; // Your local stickman image
 
-// Example: Fetch funny people from API
-async function fetchFunnyPeople() {
-  try {
-    const response = await fetch('https://your-api-url.com/funny-people');
-    const data = await response.json(); // Assume API returns array of image URLs
-    return data;
-  } catch (error) {
-    console.error('Error fetching funny people:', error);
-    return [];
-  }
-}
+// Your local funny people images
+const funnyPeople = [
+  "funny1.jpg",
+  "funny2.jpg",
+  "funny3.jpg",
+  "funny4.jpg"
+];
 
 // Function to create a card
 function addFunnyCard(imageSrc) {
@@ -39,19 +35,21 @@ function addFunnyCard(imageSrc) {
   container.appendChild(card);
 }
 
-// Shuffle function
-async function shuffleFunnyPeople() {
-  container.innerHTML = ''; // Clear previous cards
-  const people = await fetchFunnyPeople();
-  if (people.length === 0) return;
-
-  // Pick random person
-  const randomIndex = Math.floor(Math.random() * people.length);
-  addFunnyCard(people[randomIndex]);
+// Display all funny people initially
+function displayAllFunnyPeople() {
+  container.innerHTML = '';
+  funnyPeople.forEach(person => addFunnyCard(person));
 }
 
-// Initial load
-shuffleFunnyPeople();
+// Shuffle function: randomly reorder all cards
+function shuffleFunnyPeople() {
+  const shuffled = [...funnyPeople].sort(() => Math.random() - 0.5);
+  container.innerHTML = '';
+  shuffled.forEach(person => addFunnyCard(person));
+}
+
+// Initial display
+displayAllFunnyPeople();
 
 // Button click
 shuffleBtn.addEventListener('click', shuffleFunnyPeople);
