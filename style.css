@@ -19,28 +19,27 @@ h1 {
     gap: 50px;
 }
 
-/* Left column with draggable images */
+/* Left column with all images together */
 #left-column {
     width: 200px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 10px;
     background-color: #fff;
-}
-
-#left-column h2 {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 #left-column img {
     width: 80px;
-    margin: 10px 0;
     cursor: grab;
 }
 
 /* Right column with stickman */
 #right-column {
-    position: relative;  /* Important for absolute positioning of items */
+    position: relative;  /* Important for absolute positioning */
     width: 400px;
     height: 500px;
     border: 2px solid #ccc;
