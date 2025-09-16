@@ -1,70 +1,42 @@
-const leftImages = document.querySelectorAll("#left-column img");
+// Make left-column images draggable
+document.querySelectorAll("#left-column img").forEach(img => {
+  img.setAttribute("draggable", "true");
+
+  img.addEventListener("dragstart", e => {
+    e.dataTransfer.setData("text/plain", e.target.src);
+  });
+});
+
 const rightColumn = document.getElementById("right-column");
 
-// Predefined snap positions for each accessory type (x, y relative to right column)
-const snapPositions = {
-  eyes:   { x: 270, y: 180 },
-  hair:   { x: 250, y: 100 },
-  hat:    { x: 250, y: 50 },
-  mouth:  { x: 270, y: 250 },
-  shirt:  { x: 250, y: 300 },
-  pants:  { x: 250, y: 400 },
-  shoes:  { x: 250, y: 500 }
-};
+// Highlight drop area
+rightColumn.addEventListener("dragover", e => {
+  e.preventDefault();
+  rightColumn.style.border = "2px dashed red";
+});
 
-leftImages.forEach(img => {
-  img.addEventListener("mousedown", e => {
-    e.preventDefault();
+rightColumn.addEventListener("dragleave", () => {
+  rightColumn.style.border = "2px dashed transparent";
+});
 
-    // Clone the dragged image
-    const dragImg = img.cloneNode(true);
-    dragImg.classList.add("added");
+// Drop event - stick exactly where cursor is
+rightColumn.addEventListener("drop", e => {
+  e.preventDefault();
+  rightColumn.style.border = "2px dashed transparent";
 
-    // Determine type based on filename
-    const src = img.src.toLowerCase();
-    let type = "";
-    if (src.includes("eyes")) type = "eyes";
-    else if (src.includes("hair")) type = "hair";
-    else if (src.includes("hat")) type = "hat";
-    else if (src.includes("mouth")) type = "mouth";
-    else if (src.includes("shirt")) type = "shirt";
-    else if (src.includes("pants")) type = "pants";
-    else if (src.includes("shoe")) type = "shoes";
+  const src = e.dataTransfer.getData("text/plain");
+  if (!src) return;
 
-    if (type) dragImg.classList.add(type);
+  const newImg = document.createElement("img");
+  newImg.src = src;
+  newImg.className = "added";
 
-    dragImg.style.position = "absolute";
-    dragImg.style.pointerEvents = "none"; 
-    rightColumn.appendChild(dragImg);
+  const rect = rightColumn.getBoundingClientRect();
+  newImg.style.left = (e.clientX - rect.left) + "px";
+  newImg.style.top = (e.clientY - rect.top) + "px";
 
-    const rect = rightColumn.getBoundingClientRect();
+  // Click to remove
+  newImg.addEventListener("click", () => newImg.remove());
 
-    // Move image with mouse
-    function onMouseMove(event) {
-      const x = event.clientX - rect.left - dragImg.width / 2;
-      const y = event.clientY - rect.top - dragImg.height / 2;
-      dragImg.style.left = x + "px";
-      dragImg.style.top = y + "px";
-    }
-
-    document.addEventListener("mousemove", onMouseMove);
-
-    // Drop image
-    function onMouseUp() {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
-
-      dragImg.style.pointerEvents = "auto"; // allow click-to-remove
-      dragImg.addEventListener("click", () => dragImg.remove());
-
-      // Snap to predefined position if type exists
-      if (type && snapPositions[type]) {
-        const snap = snapPositions[type];
-        dragImg.style.left = snap.x + "px";
-        dragImg.style.top = snap.y + "px";
-      }
-    }
-
-    document.addEventListener("mouseup", onMouseUp);
-  });
+  rightColumn.appendChild(newImg);
 });
