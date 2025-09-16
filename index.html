@@ -1,25 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Funny People - Module 4</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Guy App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Funny People - Custom Version</h1>
-  </header>
+    <h1>Build Your Funny Guy!</h1>
 
-  <main>
-    <section id="app">
-      <canvas id="personCanvas" width="400" height="400"></canvas>
-      <div>
-        <button id="shuffleBtn">Shuffle Person</button>
-      </div>
-    </section>
-  </main>
+    <div id="container">
+        <!-- Left column with draggable items -->
+        <div id="left-column">
+            <h2>Eyes</h2>
+            <img src="images/eyes_01.png" class="draggable" draggable="true">
+            <img src="images/eyes_02.png" class="draggable" draggable="true">
+            <img src="images/eyes_03.png" class="draggable" draggable="true">
 
-  <script src="js/api.js"></script>
+            <h2>Hair</h2>
+            <img src="images/face-hair_01.png" class="draggable" draggable="true">
+            <img src="images/face-hair_02.png" class="draggable" draggable="true">
+        </div>
+
+        <!-- Right column with stickman -->
+        <div id="right-column">
+            <img src="images/stickman.png" id="stickman">
+        </div>
+    </div>
+
+    <button id="resetBtn">Reset</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
