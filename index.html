@@ -1,93 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Funny Guy App</title>
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Load our merged jQuery + Funny Guy logic -->
-    <script src="javascript/api.js"></script>
-    <!-- Load jQuery UI (for draggable & droppable) -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funny Guy App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="left-column">
-        <!-- Eyes -->
-        <img src="eyes_01.png" class="draggable"/>
-        <img src="eyes_02.png" class="draggable"/>
-        <img src="eyes_03.png" class="draggable"/>
-        <img src="eyes_04.png" class="draggable"/>
-        <img src="eyes_05.png" class="draggable"/>
-        <img src="eyes_06.png" class="draggable"/>
-        <img src="eyes_07.png" class="draggable"/>
-        <img src="eyes_08.png" class="draggable"/>
+  <h1>Funny Guy Custom Version</h1>
 
-        <!-- Face Hair -->
-        <img src="face-hair_01.png" class="draggable"/>
-        <img src="face-hair_02.png" class="draggable"/>
-        <img src="face-hair_03.png" class="draggable"/>
-        <img src="face-hair_04.png" class="draggable"/>
-        <img src="face-hair_05.png" class="draggable"/>
+  <div id="funny-container">
+    <!-- Funny cards will be inserted here -->
+  </div>
 
-        <!-- Glasses -->
-        <img src="glasses_01.png" class="draggable"/>
-        <img src="glasses_02.png" class="draggable"/>
-        <img src="glasses_03.png" class="draggable"/>
-        <img src="glasses_04.png" class="draggable"/>
-        <img src="glasses_05.png" class="draggable"/>
+  <button id="shuffle-btn">Shuffle</button>
 
-        <!-- Hair -->
-        <img src="hair_01.png" class="draggable"/>
-        <img src="hair_02.png" class="draggable"/>
-        <img src="hair_03.png" class="draggable"/>
-        <img src="hair_04.png" class="draggable"/>
-        <img src="hair_05.png" class="draggable"/>
-        <img src="hair_06.png" class="draggable"/>
-        <img src="hair_07.png" class="draggable"/>
-
-        <!-- Hats -->
-        <img src="hat_01.png" class="draggable"/>
-        <img src="hat_02.png" class="draggable"/>
-        <img src="hat_03.png" class="draggable"/>
-        <img src="hat_04.png" class="draggable"/>
-        <img src="hat_05.png" class="draggable"/>
-
-        <!-- Mouths -->
-        <img src="mouth_01.png" class="draggable"/>
-        <img src="mouth_02.png" class="draggable"/>
-        <img src="mouth_03.png" class="draggable"/>
-        <img src="mouth_04.png" class="draggable"/>
-        <img src="mouth_05.png" class="draggable"/>
-        <img src="mouth_06.png" class="draggable"/>
-        <img src="mouth_07.png" class="draggable"/>
-        <img src="mouth_08.png" class="draggable"/>
-
-        <!-- Shirts -->
-        <img src="shirt_01.png" class="draggable"/>
-        <img src="shirt_02.png" class="draggable"/>
-        <img src="shirt_03.png" class="draggable"/>
-        <img src="shirt_04.png" class="draggable"/>
-        <img src="shirt_05.png" class="draggable"/>
-
-        <!-- Pants -->
-        <img src="pants_01.png" class="draggable"/>
-        <img src="pants_02.png" class="draggable"/>
-        <img src="pants_03.png" class="draggable"/>
-        <img src="pants_04.png" class="draggable"/>
-        <img src="pants_05.png" class="draggable"/>
-
-        <!-- Shoes -->
-        <img src="shoe_01_L.png" class="draggable"/>
-        <img src="shoe_01_R.png" class="draggable"/>
-        <img src="shoe_02_L.png" class="draggable"/>
-        <img src="shoe_02_R.png" class="draggable"/>
-    </div>
-
-    <div id="right-column">
-        <!-- Stickman -->
-        <img src="stickman.png" id="stickman">
-        <!-- Logo -->
-        <img src="logo.png" id="logo">
-    </div>
+  <script src="script.js"></script>
 </body>
 </html>
