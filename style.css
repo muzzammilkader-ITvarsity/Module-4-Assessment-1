@@ -5,7 +5,7 @@ body {
   padding: 0;
 }
 
-/* Left column with scroll */
+/* Left column */
 #left-column {
   width: 220px;
   height: 100vh;
@@ -33,16 +33,27 @@ body {
   justify-self: center;
 }
 
-/* Right column with stickman */
+/* Right column with two stickmen side by side */
 #right-column {
   flex-grow: 1;
   height: 100vh;
   margin-left: 20px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px; /* space between stickmen */
   border: 2px dashed transparent;
 }
 
-#stickman {
+.stickman-wrapper {
+  position: relative;
+  width: 300px;
+  text-align: center;
+}
+
+#stickman,
+#stickman2 {
   height: 400px;
   display: block;
   margin: 20px auto;
@@ -55,19 +66,19 @@ body {
   width: 120px;
 }
 
-/* Default added item */
+/* Default added items */
 #right-column img.added {
   width: 100px;
   cursor: pointer;
   position: absolute;
 }
 
-/* Make hats smaller */
+/* Smaller hats */
 #right-column img.added[alt*="Hat"] {
   width: 80px;
 }
 
-/* Make person images larger */
+/* Larger person images */
 #right-column img.added[alt*="Person"],
 #right-column img.added[alt*="Walk"] {
   width: 200px;
