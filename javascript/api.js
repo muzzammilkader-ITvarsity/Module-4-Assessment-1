@@ -1,6 +1,17 @@
 const leftImages = document.querySelectorAll("#left-column img");
 const rightColumn = document.getElementById("right-column");
 
+// Predefined snap positions for each accessory type (x, y relative to right column)
+const snapPositions = {
+  eyes:   { x: 270, y: 180 },
+  hair:   { x: 250, y: 100 },
+  hat:    { x: 250, y: 50 },
+  mouth:  { x: 270, y: 250 },
+  shirt:  { x: 250, y: 300 },
+  pants:  { x: 250, y: 400 },
+  shoes:  { x: 250, y: 500 }
+};
+
 leftImages.forEach(img => {
   img.addEventListener("mousedown", e => {
     e.preventDefault();
@@ -9,23 +20,26 @@ leftImages.forEach(img => {
     const dragImg = img.cloneNode(true);
     dragImg.classList.add("added");
 
-    // Add type class based on filename for proper sizing
+    // Determine type based on filename
     const src = img.src.toLowerCase();
-    if (src.includes("eyes")) dragImg.classList.add("eyes");
-    else if (src.includes("hair")) dragImg.classList.add("hair");
-    else if (src.includes("hat")) dragImg.classList.add("hat");
-    else if (src.includes("mouth")) dragImg.classList.add("mouth");
-    else if (src.includes("shirt")) dragImg.classList.add("shirt");
-    else if (src.includes("pants")) dragImg.classList.add("pants");
-    else if (src.includes("shoe")) dragImg.classList.add("shoes");
+    let type = "";
+    if (src.includes("eyes")) type = "eyes";
+    else if (src.includes("hair")) type = "hair";
+    else if (src.includes("hat")) type = "hat";
+    else if (src.includes("mouth")) type = "mouth";
+    else if (src.includes("shirt")) type = "shirt";
+    else if (src.includes("pants")) type = "pants";
+    else if (src.includes("shoe")) type = "shoes";
+
+    if (type) dragImg.classList.add(type);
 
     dragImg.style.position = "absolute";
-    dragImg.style.pointerEvents = "none"; // ignore mouse events while dragging
+    dragImg.style.pointerEvents = "none"; 
     rightColumn.appendChild(dragImg);
 
     const rect = rightColumn.getBoundingClientRect();
 
-    // Move the clone with the mouse
+    // Move image with mouse
     function onMouseMove(event) {
       const x = event.clientX - rect.left - dragImg.width / 2;
       const y = event.clientY - rect.top - dragImg.height / 2;
@@ -35,13 +49,20 @@ leftImages.forEach(img => {
 
     document.addEventListener("mousemove", onMouseMove);
 
-    // Drop the image
+    // Drop image
     function onMouseUp() {
-      dragImg.style.pointerEvents = "auto"; // enable click to remove
-      dragImg.addEventListener("click", () => dragImg.remove());
-
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
+
+      dragImg.style.pointerEvents = "auto"; // allow click-to-remove
+      dragImg.addEventListener("click", () => dragImg.remove());
+
+      // Snap to predefined position if type exists
+      if (type && snapPositions[type]) {
+        const snap = snapPositions[type];
+        dragImg.style.left = snap.x + "px";
+        dragImg.style.top = snap.y + "px";
+      }
     }
 
     document.addEventListener("mouseup", onMouseUp);
