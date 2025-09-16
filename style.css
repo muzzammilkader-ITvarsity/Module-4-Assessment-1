@@ -52,8 +52,8 @@ body {
 }
 
 #stickman {
-  width: auto;        /* keep original proportions */
-  height: 300px;      /* limit height */
+  width: auto;        /* maintain original proportions */
+  height: 350px;      /* slightly bigger */
   position: absolute;
   top: 50%;
   left: 50%;
