@@ -31,12 +31,18 @@ rightColumn.addEventListener("drop", e => {
   newImg.src = src;
   newImg.className = "added";
 
+  // Append first to measure size
+  newImg.style.position = "absolute";
+  newImg.style.left = "0px";
+  newImg.style.top = "0px";
+  rightColumn.appendChild(newImg);
+
+  // Center the image at cursor
   const rect = rightColumn.getBoundingClientRect();
-  newImg.style.left = (e.clientX - rect.left) + "px";
-  newImg.style.top = (e.clientY - rect.top) + "px";
+  const imgRect = newImg.getBoundingClientRect();
+  newImg.style.left = (e.clientX - rect.left - imgRect.width / 2) + "px";
+  newImg.style.top = (e.clientY - rect.top - imgRect.height / 2) + "px";
 
   // Click to remove
   newImg.addEventListener("click", () => newImg.remove());
-
-  rightColumn.appendChild(newImg);
 });
