@@ -1,28 +1,79 @@
+/* Basic page styling */
 body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  color: #333;
-  text-align: center;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 20px;
 }
-header h1 {
-  margin-bottom: 20px;
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
 }
-#personCanvas {
-  border: 2px solid #444;
-  border-radius: 12px;
-  background: #fff;
-  margin-bottom: 12px;
+
+/* Container holding left and right columns */
+#container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
 }
-button {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  background: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+
+/* Left column with draggable images */
+#left-column {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
 }
-button:hover {
-  background: #0056b3;
+
+#left-column h2 {
+    margin-top: 20px;
+}
+
+#left-column img {
+    width: 80px;
+    margin: 10px 0;
+    cursor: grab;
+}
+
+/* Right column with stickman */
+#right-column {
+    position: relative;  /* Important for absolute positioning of items */
+    width: 400px;
+    height: 500px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #e0f7fa;
+}
+
+/* Stickman image */
+#stickman {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    width: 200px;
+}
+
+/* Draggable items added on top of stickman */
+#right-column img.added {
+    position: absolute;
+    cursor: pointer;
+}
+
+/* Reset button */
+#resetBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+#resetBtn:hover {
+    background-color: #45a049;
 }
