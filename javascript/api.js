@@ -7,9 +7,9 @@ oldStickman.forEach(img => img.remove());
 
 // Add new stickman
 const stickman = document.createElement("img");
-stickman.src = "new_stickman.png";  // same as before
+stickman.src = "new_stickman.png"; 
 stickman.id = "stickman";
-stickman.style.height = "400px";
+stickman.style.height = "400px"; // same as before
 stickman.style.position = "absolute";
 stickman.style.left = "50%";
 stickman.style.top = "50%";
@@ -18,12 +18,7 @@ rightColumn.appendChild(stickman);
 
 // Add new images to the left column
 const leftColumn = document.getElementById("left-column");
-const newImages = [
-  "./graduation_hat.png",  // <-- added ./ to ensure correct relative path
-  "pants.png",
-  "shirt.png",
-  "t_shirt.png"
-];
+const newImages = ["cartoon_hat.png", "blue_cap.png", "pants.png", "shirt.png", "t_shirt.png"];
 newImages.forEach(src => {
   const img = document.createElement("img");
   img.src = src;
@@ -41,7 +36,7 @@ updatedLeftImages.forEach(img => {
     dragImg.src = img.src;
     dragImg.className = "added";
     dragImg.style.position = "absolute";
-    dragImg.style.pointerEvents = "none";
+    dragImg.style.pointerEvents = "none"; // so we don't capture mouse events
     rightColumn.appendChild(dragImg);
 
     // Position it under the cursor
@@ -56,10 +51,11 @@ updatedLeftImages.forEach(img => {
     }
 
     function upHandler() {
-      dragImg.style.pointerEvents = "auto";
+      dragImg.style.pointerEvents = "auto"; // allow clicking to remove
       document.removeEventListener("mousemove", moveHandler);
       document.removeEventListener("mouseup", upHandler);
 
+      // Click to remove
       dragImg.addEventListener("click", () => dragImg.remove());
     }
 
