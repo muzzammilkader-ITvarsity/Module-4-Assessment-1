@@ -1,115 +1,41 @@
-const draggables = document.querySelectorAll('.draggable');
-const rightColumn = document.getElementById('right-column');
-const resetBtn = document.getElementById('resetBtn');
+// Make all left-column images draggable
+document.querySelectorAll("#left-column img").forEach(img => {
+    img.setAttribute("draggable", "true");
 
-// Snap positions for all items (adjust numbers as needed)
-const snapPositions = {
-    eyes_01: {top: 70, left: 120, width: 80},
-    eyes_02: {top: 70, left: 120, width: 80},
-    eyes_03: {top: 70, left: 120, width: 80},
-    eyes_04: {top: 70, left: 120, width: 80},
-    eyes_05: {top: 70, left: 120, width: 80},
-    eyes_06: {top: 70, left: 120, width: 80},
-    eyes_07: {top: 70, left: 120, width: 80},
-    eyes_08: {top: 70, left: 120, width: 80},
-
-    face_hair_01: {top: 140, left: 120, width: 80},
-    face_hair_02: {top: 140, left: 120, width: 80},
-    face_hair_03: {top: 140, left: 120, width: 80},
-    face_hair_04: {top: 140, left: 120, width: 80},
-    face_hair_05: {top: 140, left: 120, width: 80},
-
-    hair_01: {top: 20, left: 120, width: 120},
-    hair_02: {top: 20, left: 120, width: 120},
-    hair_03: {top: 20, left: 120, width: 120},
-    hair_04: {top: 20, left: 120, width: 120},
-    hair_05: {top: 20, left: 120, width: 120},
-    hair_06: {top: 20, left: 120, width: 120},
-    hair_07: {top: 20, left: 120, width: 120},
-
-    glasses_01: {top: 70, left: 120, width: 80},
-    glasses_02: {top: 70, left: 120, width: 80},
-    glasses_03: {top: 70, left: 120, width: 80},
-    glasses_04: {top: 70, left: 120, width: 80},
-    glasses_05: {top: 70, left: 120, width: 80},
-
-    hat_01: {top: 0, left: 120, width: 120},
-    hat_02: {top: 0, left: 120, width: 120},
-    hat_03: {top: 0, left: 120, width: 120},
-    hat_04: {top: 0, left: 120, width: 120},
-    hat_05: {top: 0, left: 120, width: 120},
-
-    mouth_01: {top: 150, left: 120, width: 80},
-    mouth_02: {top: 150, left: 120, width: 80},
-    mouth_03: {top: 150, left: 120, width: 80},
-    mouth_04: {top: 150, left: 120, width: 80},
-    mouth_05: {top: 150, left: 120, width: 80},
-    mouth_06: {top: 150, left: 120, width: 80},
-    mouth_07: {top: 150, left: 120, width: 80},
-    mouth_08: {top: 150, left: 120, width: 80},
-
-    shirt_01: {top: 200, left: 110, width: 120},
-    shirt_02: {top: 200, left: 110, width: 120},
-    shirt_03: {top: 200, left: 110, width: 120},
-    shirt_04: {top: 200, left: 110, width: 120},
-    shirt_05: {top: 200, left: 110, width: 120},
-
-    pants_01: {top: 300, left: 110, width: 120},
-    pants_02: {top: 300, left: 110, width: 120},
-    pants_03: {top: 300, left: 110, width: 120},
-    pants_04: {top: 300, left: 110, width: 120},
-    pants_05: {top: 300, left: 110, width: 120},
-
-    shoe_01_L: {top: 400, left: 110, width: 50},
-    shoe_01_R: {top: 400, left: 180, width: 50},
-    shoe_02_L: {top: 400, left: 110, width: 50},
-    shoe_02_R: {top: 400, left: 180, width: 50}
-};
-
-// Make all draggable images draggable
-draggables.forEach(img => {
-    img.setAttribute('draggable', true);
-    img.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', e.target.src);
+    img.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("src", e.target.src);
+        e.dataTransfer.setData("class", e.target.className);
     });
 });
 
-// Allow dropping on the right column
-rightColumn.addEventListener('dragover', e => e.preventDefault());
+// Allow drops on the right column
+const rightColumn = document.getElementById("right-column");
 
-// Drop logic
-rightColumn.addEventListener('drop', e => {
+// Required so drops are allowed
+rightColumn.addEventListener("dragover", e => {
     e.preventDefault();
-    const src = e.dataTransfer.getData('text/plain');
-    const filename = src.split('/').pop().split('.')[0];
-
-    const newImg = document.createElement('img');
-    newImg.src = src;
-    newImg.classList.add('added');
-    newImg.style.position = 'absolute';
-
-    // Snap to correct position
-    if(snapPositions[filename]){
-        const pos = snapPositions[filename];
-        newImg.style.top = `${pos.top}px`;
-        newImg.style.left = `${pos.left}px`;
-        newImg.style.width = `${pos.width}px`;
-    } else {
-        // Drop near mouse if unknown
-        const rect = rightColumn.getBoundingClientRect();
-        newImg.style.left = `${e.clientX - rect.left - 40}px`;
-        newImg.style.top = `${e.clientY - rect.top - 40}px`;
-        newImg.style.width = '80px';
-        newImg.style.height = '80px';
-    }
-
-    rightColumn.appendChild(newImg);
-
-    // Click to remove
-    newImg.addEventListener('click', () => newImg.remove());
 });
 
-// Reset button
-resetBtn.addEventListener('click', () => {
-    document.querySelectorAll('#right-column img.added').forEach(item => item.remove());
+// Handle drop
+rightColumn.addEventListener("drop", e => {
+    e.preventDefault();
+
+    const src = e.dataTransfer.getData("src");
+    if (!src) return;
+
+    // Create a new image for the dropped item
+    const newImg = document.createElement("img");
+    newImg.src = src;
+    newImg.className = "added";
+    newImg.style.position = "absolute";
+
+    // Position it where dropped
+    const rect = rightColumn.getBoundingClientRect();
+    newImg.style.left = (e.clientX - rect.left - 50) + "px";
+    newImg.style.top = (e.clientY - rect.top - 50) + "px";
+
+    // Allow removing by click
+    newImg.addEventListener("click", () => newImg.remove());
+
+    rightColumn.appendChild(newImg);
 });
