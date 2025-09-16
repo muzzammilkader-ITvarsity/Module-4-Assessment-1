@@ -82,3 +82,9 @@ img#logo {
 #resetBtn:hover {
     background-color: #45a049;
 }
+#right-column {
+    position: relative; /* This makes dropped images position relative to this container */
+}
+#right-column img.added {
+    cursor: pointer; /* optional: shows pointer when hovering added items */
+}
