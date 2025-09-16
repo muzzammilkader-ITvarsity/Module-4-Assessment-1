@@ -1,55 +1,42 @@
-const container = document.getElementById('funny-container');
-const shuffleBtn = document.getElementById('shuffle-btn');
-const stickman = "stickman.png"; // Your local stickman image
+// Make left-column images draggable
+document.querySelectorAll("#left-column img").forEach(img => {
+  img.setAttribute("draggable", "true");
 
-// Your local funny people images
-const funnyPeople = [
-  "funny1.jpg",
-  "funny2.jpg",
-  "funny3.jpg",
-  "funny4.jpg"
-];
+  img.addEventListener("dragstart", e => {
+    e.dataTransfer.setData("text/plain", e.target.src);
+  });
+});
 
-// Function to create a card
-function addFunnyCard(imageSrc) {
-  const card = document.createElement('div');
-  card.classList.add('funny-card');
+const rightColumn = document.getElementById("right-column");
 
-  const leftDiv = document.createElement('div');
-  leftDiv.classList.add('image-left');
-  const leftImg = document.createElement('img');
-  leftImg.src = imageSrc;
-  leftImg.alt = "Funny Person";
-  leftDiv.appendChild(leftImg);
+// Highlight drop area on dragover
+rightColumn.addEventListener("dragover", e => {
+  e.preventDefault(); // must prevent default
+  rightColumn.style.border = "2px dashed red";
+});
 
-  const rightDiv = document.createElement('div');
-  rightDiv.classList.add('stickman-right');
-  const rightImg = document.createElement('img');
-  rightImg.src = stickman;
-  rightImg.alt = "Stickman";
-  rightDiv.appendChild(rightImg);
+rightColumn.addEventListener("dragleave", () => {
+  rightColumn.style.border = "2px dashed transparent";
+});
 
-  card.appendChild(leftDiv);
-  card.appendChild(rightDiv);
+// Handle drop
+rightColumn.addEventListener("drop", e => {
+  e.preventDefault();
+  rightColumn.style.border = "2px dashed transparent";
 
-  container.appendChild(card);
-}
+  const src = e.dataTransfer.getData("text/plain");
+  if (!src) return;
 
-// Display all funny people initially
-function displayAllFunnyPeople() {
-  container.innerHTML = '';
-  funnyPeople.forEach(person => addFunnyCard(person));
-}
+  const newImg = document.createElement("img");
+  newImg.src = src;
+  newImg.className = "added";
 
-// Shuffle function: randomly reorder all cards
-function shuffleFunnyPeople() {
-  const shuffled = [...funnyPeople].sort(() => Math.random() - 0.5);
-  container.innerHTML = '';
-  shuffled.forEach(person => addFunnyCard(person));
-}
+  const rect = rightColumn.getBoundingClientRect();
+  newImg.style.left = (e.clientX - rect.left - 40) + "px";
+  newImg.style.top = (e.clientY - rect.top - 40) + "px";
 
-// Initial display
-displayAllFunnyPeople();
+  // Click to remove
+  newImg.addEventListener("click", () => newImg.remove());
 
-// Button click
-shuffleBtn.addEventListener('click', shuffleFunnyPeople);
+  rightColumn.appendChild(newImg);
+});
