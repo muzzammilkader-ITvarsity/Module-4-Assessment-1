@@ -7,9 +7,9 @@ oldStickman.forEach(img => img.remove());
 
 // Add new stickman
 const stickman = document.createElement("img");
-stickman.src = "stick_man.png";
+stickman.src = "new_stickman.png";  // only change is here
 stickman.id = "stickman";
-stickman.style.height = "400px"; // same as before
+stickman.style.height = "400px"; // keep previous size
 stickman.style.position = "absolute";
 stickman.style.left = "50%";
 stickman.style.top = "50%";
