@@ -1,39 +1,57 @@
-/* ============================================================
-   jQuery 3.7.1 (latest stable, slim build)
-   ============================================================ */
-!function(e,t){"use strict";"object"==typeof module&&"object"==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error("jQuery requires a window with a document");return t(e)}:t(e)}("undefined"!=typeof window?window:this,function(C,e){"use strict";var t=[],E=Object.getPrototypeOf,s=t.slice,D=t.flat?function(e){return t.flat.call(e)}:function(e){return t.concat.apply([],e)},k=t.push; /* ... jQuery 3.7.1 minified code continues ... */ });
-/* ============================================================
-   FUNNY GUY CUSTOM CODE
-   ============================================================ */
-$(function () {
-    // Make all parts draggable
-    $(".draggable").draggable({
-        helper: "clone",
-        revert: "invalid"
-    });
+const container = document.getElementById('funny-container');
+const shuffleBtn = document.getElementById('shuffle-btn');
+const stickman = "stickman.png"; // Stickman image
 
-    // Stickman area as drop zone
-    $("#right-column").droppable({
-        accept: ".draggable",
-        drop: function (event, ui) {
-            const dropped = $(ui.helper).clone();
-            dropped.removeClass("ui-draggable-dragging");
+// Example: Fetch funny people from API
+async function fetchFunnyPeople() {
+  try {
+    const response = await fetch('https://your-api-url.com/funny-people');
+    const data = await response.json(); // Assume API returns array of image URLs
+    return data;
+  } catch (error) {
+    console.error('Error fetching funny people:', error);
+    return [];
+  }
+}
 
-            // Position relative to stickman area
-            dropped.css({
-                position: "absolute",
-                left: ui.offset.left - $(this).offset().left,
-                top: ui.offset.top - $(this).offset().top,
-                width: "80px",
-                cursor: "move"
-            });
+// Function to create a card
+function addFunnyCard(imageSrc) {
+  const card = document.createElement('div');
+  card.classList.add('funny-card');
 
-            // Make dropped part movable inside stickman
-            dropped.draggable({
-                containment: "#right-column"
-            });
+  const leftDiv = document.createElement('div');
+  leftDiv.classList.add('image-left');
+  const leftImg = document.createElement('img');
+  leftImg.src = imageSrc;
+  leftImg.alt = "Funny Person";
+  leftDiv.appendChild(leftImg);
 
-            $(this).append(dropped);
-        }
-    });
-});
+  const rightDiv = document.createElement('div');
+  rightDiv.classList.add('stickman-right');
+  const rightImg = document.createElement('img');
+  rightImg.src = stickman;
+  rightImg.alt = "Stickman";
+  rightDiv.appendChild(rightImg);
+
+  card.appendChild(leftDiv);
+  card.appendChild(rightDiv);
+
+  container.appendChild(card);
+}
+
+// Shuffle function
+async function shuffleFunnyPeople() {
+  container.innerHTML = ''; // Clear previous cards
+  const people = await fetchFunnyPeople();
+  if (people.length === 0) return;
+
+  // Pick random person
+  const randomIndex = Math.floor(Math.random() * people.length);
+  addFunnyCard(people[randomIndex]);
+}
+
+// Initial load
+shuffleFunnyPeople();
+
+// Button click
+shuffleBtn.addEventListener('click', shuffleFunnyPeople);
