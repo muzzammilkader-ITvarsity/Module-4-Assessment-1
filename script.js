@@ -28,14 +28,14 @@ rightColumn.addEventListener('drop', e => {
     
     // Set initial position based on drop location
     const rect = rightColumn.getBoundingClientRect();
-    newImg.style.left = `${e.clientX - rect.left - 40}px`; // adjust 40px for image center
-    newImg.style.top = `${e.clientY - rect.top - 40}px`;   // adjust 40px for image center
+    newImg.style.left = `${e.clientX - rect.left - 40}px`; // center image
+    newImg.style.top = `${e.clientY - rect.top - 40}px`;   
     newImg.style.width = '80px';
     newImg.style.height = '80px';
     
     rightColumn.appendChild(newImg);
 
-    // Allow clicking to remove added item
+    // Click on added item to remove it
     newImg.addEventListener('click', () => {
         newImg.remove();
     });
@@ -43,7 +43,6 @@ rightColumn.addEventListener('drop', e => {
 
 // Reset button functionality
 resetBtn.addEventListener('click', () => {
-    // Remove all added images
     const addedItems = document.querySelectorAll('#right-column img.added');
     addedItems.forEach(item => item.remove());
 });
