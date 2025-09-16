@@ -4,14 +4,12 @@ document.querySelectorAll("#left-column img").forEach(img => {
 
     img.addEventListener("dragstart", e => {
         e.dataTransfer.setData("src", e.target.src);
-        e.dataTransfer.setData("class", e.target.className);
     });
 });
 
-// Allow drops on the right column
 const rightColumn = document.getElementById("right-column");
 
-// Required so drops are allowed
+// MUST preventDefault to allow dropping
 rightColumn.addEventListener("dragover", e => {
     e.preventDefault();
 });
@@ -29,12 +27,12 @@ rightColumn.addEventListener("drop", e => {
     newImg.className = "added";
     newImg.style.position = "absolute";
 
-    // Position it where dropped
+    // Place it where the user dropped
     const rect = rightColumn.getBoundingClientRect();
     newImg.style.left = (e.clientX - rect.left - 50) + "px";
     newImg.style.top = (e.clientY - rect.top - 50) + "px";
 
-    // Allow removing by click
+    // Click to remove
     newImg.addEventListener("click", () => newImg.remove());
 
     rightColumn.appendChild(newImg);
