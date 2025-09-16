@@ -53,7 +53,7 @@ body {
 
 #stickman {
   width: auto;        /* maintain original proportions */
-  height: 350px;      /* slightly bigger */
+  height: 400px;      /* taller stickman */
   position: absolute;
   top: 50%;
   left: 50%;
