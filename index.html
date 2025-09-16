@@ -1,58 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Funny People App</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Funny Guy App</title>
+    <link rel="stylesheet" href="style.css">
 
-  <!-- jQuery UI CSS -->
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- Load our merged jQuery + Funny Guy logic -->
+    <script src="javascript/api.js"></script>
+    <!-- Load jQuery UI (for draggable & droppable) -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="logo.png" alt="Funny People Logo" class="logo">
-    </header>
+    <div id="left-column">
+        <!-- Eyes -->
+        <img src="eyes_01.png" class="draggable"/>
+        <img src="eyes_02.png" class="draggable"/>
+        <img src="eyes_03.png" class="draggable"/>
+        <img src="eyes_04.png" class="draggable"/>
+        <img src="eyes_05.png" class="draggable"/>
+        <img src="eyes_06.png" class="draggable"/>
+        <img src="eyes_07.png" class="draggable"/>
+        <img src="eyes_08.png" class="draggable"/>
 
-    <main>
-      <!-- Left side: parts -->
-      <div class="parts">
-        <h2>Pick Parts</h2>
-        <div class="part-category">
-          <h3>Eyes</h3>
-          <img src="eyes_01.png" class="draggable" alt="eyes1">
-          <img src="eyes_02.png" class="draggable" alt="eyes2">
-          <img src="eyes_03.png" class="draggable" alt="eyes3">
-          <!-- add the rest -->
-        </div>
+        <!-- Face Hair -->
+        <img src="face-hair_01.png" class="draggable"/>
+        <img src="face-hair_02.png" class="draggable"/>
+        <img src="face-hair_03.png" class="draggable"/>
+        <img src="face-hair_04.png" class="draggable"/>
+        <img src="face-hair_05.png" class="draggable"/>
 
-        <div class="part-category">
-          <h3>Mouths</h3>
-          <img src="mouth_01.png" class="draggable" alt="mouth1">
-          <img src="mouth_02.png" class="draggable" alt="mouth2">
-          <!-- add the rest -->
-        </div>
+        <!-- Glasses -->
+        <img src="glasses_01.png" class="draggable"/>
+        <img src="glasses_02.png" class="draggable"/>
+        <img src="glasses_03.png" class="draggable"/>
+        <img src="glasses_04.png" class="draggable"/>
+        <img src="glasses_05.png" class="draggable"/>
 
-        <div class="part-category">
-          <h3>Hair</h3>
-          <img src="hair_01.png" class="draggable" alt="hair1">
-          <img src="hair_02.png" class="draggable" alt="hair2">
-          <!-- add the rest -->
-        </div>
+        <!-- Hair -->
+        <img src="hair_01.png" class="draggable"/>
+        <img src="hair_02.png" class="draggable"/>
+        <img src="hair_03.png" class="draggable"/>
+        <img src="hair_04.png" class="draggable"/>
+        <img src="hair_05.png" class="draggable"/>
+        <img src="hair_06.png" class="draggable"/>
+        <img src="hair_07.png" class="draggable"/>
 
-        <!-- keep going for hats, glasses, beards, shirts, pants, shoes -->
-      </div>
+        <!-- Hats -->
+        <img src="hat_01.png" class="draggable"/>
+        <img src="hat_02.png" class="draggable"/>
+        <img src="hat_03.png" class="draggable"/>
+        <img src="hat_04.png" class="draggable"/>
+        <img src="hat_05.png" class="draggable"/>
 
-      <!-- Right side: stickman -->
-      <div class="stage">
-        <img src="stickman.png" alt="Stickman" class="stickman droppable">
-      </div>
-    </main>
-  </div>
+        <!-- Mouths -->
+        <img src="mouth_01.png" class="draggable"/>
+        <img src="mouth_02.png" class="draggable"/>
+        <img src="mouth_03.png" class="draggable"/>
+        <img src="mouth_04.png" class="draggable"/>
+        <img src="mouth_05.png" class="draggable"/>
+        <img src="mouth_06.png" class="draggable"/>
+        <img src="mouth_07.png" class="draggable"/>
+        <img src="mouth_08.png" class="draggable"/>
 
-  <!-- Scripts -->
-  <script src="javascript/api.js"></script> <!-- Your given jQuery 1.5 -->
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> <!-- jQuery UI -->
-  <script src="script.js"></script>
+        <!-- Shirts -->
+        <img src="shirt_01.png" class="draggable"/>
+        <img src="shirt_02.png" class="draggable"/>
+        <img src="shirt_03.png" class="draggable"/>
+        <img src="shirt_04.png" class="draggable"/>
+        <img src="shirt_05.png" class="draggable"/>
+
+        <!-- Pants -->
+        <img src="pants_01.png" class="draggable"/>
+        <img src="pants_02.png" class="draggable"/>
+        <img src="pants_03.png" class="draggable"/>
+        <img src="pants_04.png" class="draggable"/>
+        <img src="pants_05.png" class="draggable"/>
+
+        <!-- Shoes -->
+        <img src="shoe_01_L.png" class="draggable"/>
+        <img src="shoe_01_R.png" class="draggable"/>
+        <img src="shoe_02_L.png" class="draggable"/>
+        <img src="shoe_02_R.png" class="draggable"/>
+    </div>
+
+    <div id="right-column">
+        <!-- Stickman -->
+        <img src="stickman.png" id="stickman">
+        <!-- Logo -->
+        <img src="logo.png" id="logo">
+    </div>
 </body>
 </html>
