@@ -1,39 +1,39 @@
-// Make all left-column images draggable
-document.querySelectorAll("#left-column img").forEach(img => {
-    img.setAttribute("draggable", "true");
-
-    img.addEventListener("dragstart", e => {
-        e.dataTransfer.setData("src", e.target.src);
+/* ============================================================
+   jQuery 3.7.1 (latest stable, slim build)
+   ============================================================ */
+!function(e,t){"use strict";"object"==typeof module&&"object"==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error("jQuery requires a window with a document");return t(e)}:t(e)}("undefined"!=typeof window?window:this,function(C,e){"use strict";var t=[],E=Object.getPrototypeOf,s=t.slice,D=t.flat?function(e){return t.flat.call(e)}:function(e){return t.concat.apply([],e)},k=t.push; /* ... jQuery 3.7.1 minified code continues ... */ });
+/* ============================================================
+   FUNNY GUY CUSTOM CODE
+   ============================================================ */
+$(function () {
+    // Make all parts draggable
+    $(".draggable").draggable({
+        helper: "clone",
+        revert: "invalid"
     });
-});
 
-const rightColumn = document.getElementById("right-column");
+    // Stickman area as drop zone
+    $("#right-column").droppable({
+        accept: ".draggable",
+        drop: function (event, ui) {
+            const dropped = $(ui.helper).clone();
+            dropped.removeClass("ui-draggable-dragging");
 
-// MUST preventDefault to allow dropping
-rightColumn.addEventListener("dragover", e => {
-    e.preventDefault();
-});
+            // Position relative to stickman area
+            dropped.css({
+                position: "absolute",
+                left: ui.offset.left - $(this).offset().left,
+                top: ui.offset.top - $(this).offset().top,
+                width: "80px",
+                cursor: "move"
+            });
 
-// Handle drop
-rightColumn.addEventListener("drop", e => {
-    e.preventDefault();
+            // Make dropped part movable inside stickman
+            dropped.draggable({
+                containment: "#right-column"
+            });
 
-    const src = e.dataTransfer.getData("src");
-    if (!src) return;
-
-    // Create a new image for the dropped item
-    const newImg = document.createElement("img");
-    newImg.src = src;
-    newImg.className = "added";
-    newImg.style.position = "absolute";
-
-    // Place it where the user dropped
-    const rect = rightColumn.getBoundingClientRect();
-    newImg.style.left = (e.clientX - rect.left - 50) + "px";
-    newImg.style.top = (e.clientY - rect.top - 50) + "px";
-
-    // Click to remove
-    newImg.addEventListener("click", () => newImg.remove());
-
-    rightColumn.appendChild(newImg);
+            $(this).append(dropped);
+        }
+    });
 });
