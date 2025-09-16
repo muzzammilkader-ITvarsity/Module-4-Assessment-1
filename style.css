@@ -19,7 +19,7 @@ h1 {
     gap: 50px;
 }
 
-/* Left column with all images together */
+/* Left column: all images together */
 #left-column {
     width: 200px;
     padding: 10px;
@@ -37,9 +37,9 @@ h1 {
     cursor: grab;
 }
 
-/* Right column with stickman */
+/* Right column: stickman and added items */
 #right-column {
-    position: relative;  /* Important for absolute positioning */
+    position: relative;
     width: 400px;
     height: 500px;
     border: 2px solid #ccc;
@@ -47,7 +47,6 @@ h1 {
     background-color: #e0f7fa;
 }
 
-/* Stickman image */
 #stickman {
     position: absolute;
     top: 50px;
@@ -55,10 +54,17 @@ h1 {
     width: 200px;
 }
 
-/* Draggable items added on top of stickman */
 #right-column img.added {
     position: absolute;
     cursor: pointer;
+}
+
+/* Logo */
+img#logo {
+    position: fixed;
+    width: 150px;
+    bottom: 20px;
+    right: 10px;
 }
 
 /* Reset button */
