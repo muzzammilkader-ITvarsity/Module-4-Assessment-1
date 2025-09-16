@@ -88,3 +88,11 @@ img#logo {
 #right-column img.added {
     cursor: pointer; /* optional: shows pointer when hovering added items */
 }
+#right-column {
+    position: relative; /* So drops position correctly inside */
+}
+
+#right-column img.added {
+    width: 100px;   /* you can adjust size */
+    cursor: pointer;
+}
