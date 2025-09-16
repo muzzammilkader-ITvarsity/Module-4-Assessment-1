@@ -1,95 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Funny Guy</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Left column with draggable items -->
-  <div id="left-column">
-    <h3>Eyes</h3>
-    <img src="eyes_01.png" />
-    <img src="eyes_02.png" />
-    <img src="eyes_03.png" />
-    <img src="eyes_04.png" />
-    <img src="eyes_05.png" />
-    <img src="eyes_06.png" />
-    <img src="eyes_07.png" />
-    <img src="eyes_08.png" />
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+}
 
-    <h3>Face Hair</h3>
-    <img src="face-hair_01.png" />
-    <img src="face-hair_02.png" />
-    <img src="face-hair_03.png" />
-    <img src="face-hair_04.png" />
-    <img src="face-hair_05.png" />
+/* Left column */
+#left-column {
+  width: 220px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  border-right: 2px solid #ccc;
+}
 
-    <h3>Glasses</h3>
-    <img src="glasses_01.png" />
-    <img src="glasses_02.png" />
-    <img src="glasses_03.png" />
-    <img src="glasses_04.png" />
-    <img src="glasses_05.png" />
+#left-column h3 {
+  text-align: center;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #333;
+}
 
-    <h3>Hair</h3>
-    <img src="hair_01.png" />
-    <img src="hair_02.png" />
-    <img src="hair_03.png" />
-    <img src="hair_04.png" />
-    <img src="hair_05.png" />
-    <img src="hair_06.png" />
-    <img src="hair_07.png" />
+#left-column img {
+  width: 90px;
+  margin: 5px;
+  cursor: grab;
+  display: inline-block;
+}
 
-    <h3>Hats</h3>
-    <img src="hat_01.png" />
-    <img src="hat_02.png" />
-    <img src="hat_03.png" />
-    <img src="hat_04.png" />
-    <img src="hat_05.png" />
-    <img src="hat_extra.png" />
-    <img src="hat_fredora.png" />
+/* Right column */
+#right-column {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+  border: 2px dashed transparent;
+  padding: 10px;
+}
 
-    <h3>Mouths</h3>
-    <img src="mouth_01.png" />
-    <img src="mouth_02.png" />
-    <img src="mouth_03.png" />
-    <img src="mouth_04.png" />
-    <img src="mouth_05.png" />
-    <img src="mouth_06.png" />
-    <img src="mouth_07.png" />
-    <img src="mouth_08.png" />
+/* Stickmen side by side */
+#stickmen-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
 
-    <h3>Pants</h3>
-    <img src="pants_01.png" />
-    <img src="pants_02.png" />
-    <img src="pants_03.png" />
-    <img src="pants_04.png" />
-    <img src="pants_05.png" />
+.stickman {
+  height: 400px;
+  width: auto;
+}
 
-    <h3>Shirts</h3>
-    <img src="shirt_01.png" />
-    <img src="shirt_02.png" />
-    <img src="shirt_03.png" />
-    <img src="shirt_04.png" />
-    <img src="shirt_05.png" />
+/* Logo bottom right */
+#logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 120px;
+}
 
-    <h3>Shoes</h3>
-    <img src="shoe_01_L.png" />
-    <img src="shoe_01_R.png" />
-    <img src="shoe_02_L.png" />
-    <img src="shoe_02_R.png" />
-  </div>
-
-  <!-- Right column with stickmen + logo -->
-  <div id="right-column">
-    <div id="stickmen-container">
-      <img src="stickman.png" class="stickman" />
-      <img src="relaxing_walk.png" class="stickman" />
-    </div>
-    <img src="logo.png" id="logo" />
-  </div>
-
-  <script src="javascript/api.js"></script>
-</body>
-</html>
+/* Dragged items */
+#right-column img.added {
+  width: 100px;
+  cursor: pointer;
+  position: absolute;
+}
