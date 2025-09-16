@@ -31,12 +31,17 @@ rightColumn.addEventListener("drop", e => {
   newImg.src = src;
   newImg.className = "added";
 
+  // Append first so we can get the actual width and height
+  rightColumn.appendChild(newImg);
+
   const rect = rightColumn.getBoundingClientRect();
-  newImg.style.left = (e.clientX - rect.left - 40) + "px";
-  newImg.style.top = (e.clientY - rect.top - 40) + "px";
+  const imgWidth = newImg.width;
+  const imgHeight = newImg.height;
+
+  // Place image centered at cursor
+  newImg.style.left = (e.clientX - rect.left - imgWidth / 2) + "px";
+  newImg.style.top = (e.clientY - rect.top - imgHeight / 2) + "px";
 
   // Click to remove
   newImg.addEventListener("click", () => newImg.remove());
-
-  rightColumn.appendChild(newImg);
 });
