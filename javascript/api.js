@@ -19,7 +19,7 @@ rightColumn.addEventListener("dragleave", () => {
   rightColumn.style.border = "2px dashed transparent";
 });
 
-// Drop event - image sticks exactly at cursor with adjusted size
+// Drop event - image sticks exactly at cursor
 rightColumn.addEventListener("drop", e => {
   e.preventDefault();
   rightColumn.style.border = "2px dashed transparent";
@@ -32,31 +32,23 @@ rightColumn.addEventListener("drop", e => {
   newImg.className = "added";
   newImg.style.position = "absolute";
 
-  // Append first so we can adjust
+  // Append first to container
   rightColumn.appendChild(newImg);
 
-  // Adjust size based on type of image to fit stickman
-  if (src.includes("hat")) {
-    newImg.style.width = "70px";
-  } else if (src.includes("eyes")) {
-    newImg.style.width = "50px";
-  } else if (src.includes("mouth")) {
-    newImg.style.width = "40px";
-  } else if (src.includes("shirt")) {
-    newImg.style.width = "120px";
-  } else if (src.includes("pants")) {
-    newImg.style.width = "100px";
-  } else if (src.includes("shoe")) {
-    newImg.style.width = "40px";
-  } else {
-    newImg.style.width = "100px"; // default
-  }
-
-  // Position at cursor exactly
+  // Wait for image to load to get correct width/height
   newImg.onload = () => {
-    const rect = rightColumn.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    // Get container position relative to page
+    const containerRect = rightColumn.getBoundingClientRect();
+    const scrollLeft = window.pageXOffset;
+    const scrollTop = window.pageYOffset;
+
+    const containerX = containerRect.left + scrollLeft;
+    const containerY = containerRect.top + scrollTop;
+
+    // Calculate drop position relative to container and center image
+    const mouseX = e.pageX - containerX;
+    const mouseY = e.pageY - containerY;
+
     newImg.style.left = (mouseX - newImg.width / 2) + "px";
     newImg.style.top = (mouseY - newImg.height / 2) + "px";
   };
