@@ -1,9 +1,8 @@
 const draggables = document.querySelectorAll('.draggable');
 const rightColumn = document.getElementById('right-column');
-const stickman = document.getElementById('stickman');
 const resetBtn = document.getElementById('resetBtn');
 
-// Snap positions for each item type (adjust numbers if needed)
+// Snap positions for all items (adjust numbers as needed)
 const snapPositions = {
     eyes_01: {top: 70, left: 120, width: 80},
     eyes_02: {top: 70, left: 120, width: 80},
@@ -67,35 +66,37 @@ const snapPositions = {
     shoe_02_R: {top: 400, left: 180, width: 50}
 };
 
-// Drag start
+// Make all draggable images draggable
 draggables.forEach(img => {
+    img.setAttribute('draggable', true);
     img.addEventListener('dragstart', e => {
         e.dataTransfer.setData('text/plain', e.target.src);
     });
 });
 
-// Drop
+// Allow dropping on the right column
 rightColumn.addEventListener('dragover', e => e.preventDefault());
 
+// Drop logic
 rightColumn.addEventListener('drop', e => {
     e.preventDefault();
     const src = e.dataTransfer.getData('text/plain');
-    const filename = src.split('/').pop().split('.')[0]; // get file name without extension
+    const filename = src.split('/').pop().split('.')[0];
 
     const newImg = document.createElement('img');
     newImg.src = src;
     newImg.classList.add('added');
+    newImg.style.position = 'absolute';
 
+    // Snap to correct position
     if(snapPositions[filename]){
         const pos = snapPositions[filename];
-        newImg.style.position = 'absolute';
         newImg.style.top = `${pos.top}px`;
         newImg.style.left = `${pos.left}px`;
         newImg.style.width = `${pos.width}px`;
     } else {
-        // unknown items drop where mouse is
+        // Drop near mouse if unknown
         const rect = rightColumn.getBoundingClientRect();
-        newImg.style.position = 'absolute';
         newImg.style.left = `${e.clientX - rect.left - 40}px`;
         newImg.style.top = `${e.clientY - rect.top - 40}px`;
         newImg.style.width = '80px';
