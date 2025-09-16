@@ -1,7 +1,6 @@
 // Select all draggable images
 const draggables = document.querySelectorAll('.draggable');
 const rightColumn = document.getElementById('right-column');
-const stickman = document.getElementById('stickman');
 const resetBtn = document.getElementById('resetBtn');
 
 // Drag start: store image source
@@ -11,7 +10,7 @@ draggables.forEach(img => {
     });
 });
 
-// Allow dropping on the right column (stickman area)
+// Allow dropping on the right column
 rightColumn.addEventListener('dragover', e => {
     e.preventDefault();
 });
@@ -25,24 +24,21 @@ rightColumn.addEventListener('drop', e => {
     const newImg = document.createElement('img');
     newImg.src = src;
     newImg.classList.add('added');
-    
-    // Set initial position based on drop location
+
+    // Position based on drop location
     const rect = rightColumn.getBoundingClientRect();
-    newImg.style.left = `${e.clientX - rect.left - 40}px`; // center image
-    newImg.style.top = `${e.clientY - rect.top - 40}px`;   
+    newImg.style.left = `${e.clientX - rect.left - 40}px`;
+    newImg.style.top = `${e.clientY - rect.top - 40}px`;
     newImg.style.width = '80px';
     newImg.style.height = '80px';
-    
+
     rightColumn.appendChild(newImg);
 
-    // Click on added item to remove it
-    newImg.addEventListener('click', () => {
-        newImg.remove();
-    });
+    // Remove item on click
+    newImg.addEventListener('click', () => newImg.remove());
 });
 
-// Reset button functionality
+// Reset button clears all added items
 resetBtn.addEventListener('click', () => {
-    const addedItems = document.querySelectorAll('#right-column img.added');
-    addedItems.forEach(item => item.remove());
+    document.querySelectorAll('#right-column img.added').forEach(item => item.remove());
 });
