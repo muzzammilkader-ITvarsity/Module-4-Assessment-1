@@ -19,7 +19,7 @@ rightColumn.addEventListener("dragleave", () => {
   rightColumn.style.border = "2px dashed transparent";
 });
 
-// Drop event - stick exactly where cursor is
+// Drop event - image sticks exactly at cursor
 rightColumn.addEventListener("drop", e => {
   e.preventDefault();
   rightColumn.style.border = "2px dashed transparent";
@@ -31,16 +31,18 @@ rightColumn.addEventListener("drop", e => {
   newImg.src = src;
   newImg.className = "added";
   newImg.style.position = "absolute";
-  newImg.style.left = "0px";
-  newImg.style.top = "0px";
+
+  // Append first so we can get its dimensions
   rightColumn.appendChild(newImg);
 
-  // Wait for image to fully load to get correct width/height
+  // Use mouse position relative to container and subtract half of image width/height
+  const rect = rightColumn.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
   newImg.onload = () => {
-    const rect = rightColumn.getBoundingClientRect();
-    const imgRect = newImg.getBoundingClientRect();
-    newImg.style.left = (e.clientX - rect.left - imgRect.width / 2) + "px";
-    newImg.style.top = (e.clientY - rect.top - imgRect.height / 2) + "px";
+    newImg.style.left = (mouseX - newImg.width / 2) + "px";
+    newImg.style.top = (mouseY - newImg.height / 2) + "px";
   };
 
   // Click to remove
