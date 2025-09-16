@@ -1,7 +1,33 @@
 const leftImages = document.querySelectorAll("#left-column img");
 const rightColumn = document.getElementById("right-column");
 
-leftImages.forEach(img => {
+// Remove old stickmen
+const oldStickman = rightColumn.querySelectorAll("img");
+oldStickman.forEach(img => img.remove());
+
+// Add new stickman
+const stickman = document.createElement("img");
+stickman.src = "stick_man.png";
+stickman.id = "stickman";
+stickman.style.height = "400px"; // same as before
+stickman.style.position = "absolute";
+stickman.style.left = "50%";
+stickman.style.top = "50%";
+stickman.style.transform = "translate(-50%, -50%)";
+rightColumn.appendChild(stickman);
+
+// Add new images to the left column
+const leftColumn = document.getElementById("left-column");
+const newImages = ["graduation_hat.png", "pants.png", "shirt.png", "t_shirt.png"];
+newImages.forEach(src => {
+  const img = document.createElement("img");
+  img.src = src;
+  leftColumn.appendChild(img);
+});
+
+// Add drag functionality to all left-column images
+const updatedLeftImages = document.querySelectorAll("#left-column img");
+updatedLeftImages.forEach(img => {
   img.addEventListener("mousedown", e => {
     e.preventDefault();
 
