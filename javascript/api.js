@@ -30,18 +30,21 @@ rightColumn.addEventListener("drop", e => {
   const newImg = document.createElement("img");
   newImg.src = src;
   newImg.className = "added";
+  newImg.style.position = "absolute";
 
-  // Append first so we can get the actual width and height
-  rightColumn.appendChild(newImg);
+  // Wait for the image to load before calculating size
+  newImg.onload = () => {
+    const rect = rightColumn.getBoundingClientRect();
+    const imgWidth = newImg.width;
+    const imgHeight = newImg.height;
 
-  const rect = rightColumn.getBoundingClientRect();
-  const imgWidth = newImg.width;
-  const imgHeight = newImg.height;
-
-  // Place image centered at cursor
-  newImg.style.left = (e.clientX - rect.left - imgWidth / 2) + "px";
-  newImg.style.top = (e.clientY - rect.top - imgHeight / 2) + "px";
+    // Center image exactly at cursor
+    newImg.style.left = (e.clientX - rect.left - imgWidth / 2) + "px";
+    newImg.style.top = (e.clientY - rect.top - imgHeight / 2) + "px";
+  };
 
   // Click to remove
   newImg.addEventListener("click", () => newImg.remove());
+
+  rightColumn.appendChild(newImg);
 });
